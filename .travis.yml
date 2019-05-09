@@ -15,7 +15,9 @@ jobs:
     - stage: Build
       script: npm run build
     - stage: Deploy
+      script: echo $TRAVIS_BRANCH
       script: npm run deploy
+      
 
 branches:
   only:

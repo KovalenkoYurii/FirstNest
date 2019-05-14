@@ -13,4 +13,4 @@ script:
   - npm run test
 
 after_success:
-  - npm run deploy -- --branch=$TRAVIS_BRANCH --token=$zeitkey --name="awesome-nest-project-$TRAVIS_BRANCH"
+  - npm run deploy -- --token=$zeitkey --name="awesome-nest-project-$TRAVIS_BRANCH"

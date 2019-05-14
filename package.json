@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "deploy": "now alias --token=$zeitkey $(now --token=$zeitkey --name \"awesome-nest-project-${TRAVIS_BRANCH}\") \"awesome-nest-project-${TRAVIS_BRANCH}\""
+    "deploy": "now alias --token=$zeitkey $(now --token=$zeitkey --name \"awesome-nest-project-${TRAVIS_BRANCH}\") \"awesome-nest-project-${TRAVIS_BRANCH}.now.sh\""
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",

@@ -1,0 +1,10 @@
+{
+  "name": "awesome-nest-project",
+  "version": 2,
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "80"
+  },
+  "builds": [{ "src": "dist/main.js", "use": "@now/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "dist/main.js" }]
+}

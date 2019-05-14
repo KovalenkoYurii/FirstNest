@@ -1,24 +1,12 @@
 language: node_js
 node_js:
-  - "11"
+  - '11'
 
 cache: npm
 before_script:
   - npm ci
 
-jobs:
-  include:
-    - stage: Lint
-      script: npm run lint
-    - stage: Test
-      script: npm run test
-    - stage: Build
-      script: npm run build
-    - stage: Deploy
-      script: echo $TRAVIS_BRANCH
-      script: npm run deploy
-      
-
-branches:
-  only:
-  - master
+script:
+  -npm run lint
+  -npm run test
+  -npm run deploy -- --branch=$TRAVIS_BRANCH --token=$zeitkey --name="awesome-nest-project-$TRAVIS_BRANCH"

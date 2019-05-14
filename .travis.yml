@@ -6,7 +6,11 @@ cache: npm
 before_script:
   - npm ci
 
-script:
+after_install:
   -npm run lint
+
+after_success:
   -npm run test
+
+deploy:
   -npm run deploy -- --branch=$TRAVIS_BRANCH --token=$zeitkey --name="awesome-nest-project-$TRAVIS_BRANCH"

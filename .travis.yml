@@ -6,7 +6,7 @@ cache: npm
 before_install:
   - npm ci
 
-before_install:
+before_script:
   - npm run lint
 
 script:

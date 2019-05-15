@@ -15,7 +15,8 @@ describe('ScheduleService', () => {
     service = module.get<ScheduleService>(ScheduleService);
   });
 
-  it('should be defined', () => {
+  it('should be defined', async done => {
     expect(service).toBeDefined();
+    done();
   });
 });

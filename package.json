@@ -13,11 +13,11 @@
     "prestart:prod": "rimraf dist && npm run build",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json --detectOpenHandles",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
     "deploy": "now alias --token=$zeitkey $(now --token=$zeitkey --name \"awesome-nest-project-${TRAVIS_BRANCH}\") \"awesome-nest-project-${TRAVIS_BRANCH}.now.sh\""
   },
   "dependencies": {

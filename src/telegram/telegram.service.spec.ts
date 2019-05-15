@@ -22,7 +22,8 @@ describe('TelegramService', () => {
     service = module.get<TelegramService>(TelegramService);
   });
 
-  it('should be defined', () => {
+  it('should be defined', async (done) => {
     expect(service).toBeDefined();
+    done();
   });
 });

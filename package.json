@@ -24,6 +24,10 @@
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
+    "@types/jsdom": "^12.2.3",
+    "@types/node-telegram-bot-api": "^0.31.0",
+    "jsdom": "^15.1.0",
+    "node-telegram-bot-api": "^0.30.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3"

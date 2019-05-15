@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { TelegramConfig } from './telegram.config';
 import * as TelegramBot from 'node-telegram-bot-api';
-import { ScheduleService } from 'src/schedule/schedule.service';
+import { ScheduleService } from '../schedule/schedule.service';
 
 @Injectable()
 export class TelegramService {

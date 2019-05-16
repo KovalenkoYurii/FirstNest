@@ -5,6 +5,6 @@ import { Request } from 'express';
 export class TelegramController {
   @All('schedule')
   getSchedule(@Req() request: Request) {
-    console.log(request);
+    console.log(request.body);
   }
 }

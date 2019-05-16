@@ -1,7 +1,7 @@
 import { Controller, Get, Req, All } from '@nestjs/common';
 import { Request } from 'express';
 
-@Controller('telegram')
+@Controller('xxx')
 export class TelegramController {
   @All('schedule')
   getSchedule(@Req() request: Request) {

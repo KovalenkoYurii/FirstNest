@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, All, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -13,5 +13,10 @@ export class AppController {
   @Get('/root')
   get(): string {
     return this.appService.getHello();
+  }
+
+  @All('/root')
+  getSchedule(@Req() request: Request) {
+    console.log(request.body);
   }
 }

@@ -18,11 +18,13 @@ export class AppController {
 
   @Get('/telegram/schedule')
   getSchedule(@Req() request: Request) {
+// tslint:disable-next-line: no-console
     console.log(request.body);
   }
 
   @Post('/telegram/schedule')
   postSchedule(@Req() request: Request) {
+// tslint:disable-next-line: no-console
     console.log(request.body);
   }
 }

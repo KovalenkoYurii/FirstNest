@@ -5,6 +5,7 @@ import { Request } from 'express';
 export class TelegramController {
   @All('/schedule')
   getSchedule(@Req() request: Request) {
+// tslint:disable-next-line: no-console
     console.log(request.body);
   }
 }

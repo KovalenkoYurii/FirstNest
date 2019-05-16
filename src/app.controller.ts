@@ -16,7 +16,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @All('/root')
+  @All('/telegram/schedule')
   getSchedule(@Req() request: Request) {
     console.log(request.body);
   }

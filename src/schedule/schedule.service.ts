@@ -23,8 +23,9 @@ export class ScheduleService {
     const {
       window: { document },
     } = await JSDOM.fromURL(groupUrl, { resources: 'usable' });
-    const nextLesson = document.querySelector('.closest_pair .plainLink')
-      .textContent;
-    return nextLesson;
+    const nextLesson =
+      document.querySelector('.closest_pair .plainLink') ||
+      document.querySelector('.current_pair .plainLink');
+    return nextLesson.textContent;
   }
 }

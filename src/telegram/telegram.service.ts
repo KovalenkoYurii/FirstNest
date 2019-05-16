@@ -6,17 +6,19 @@ import { ScheduleService } from '../schedule/schedule.service';
 @Injectable()
 export class TelegramService {
   private readonly telegramBot: TelegramBot;
+  private readonly webhookUrl: string = `${
+    process.env.NOW_URL
+  }/telegram/schedule`;
   constructor(private schedule: ScheduleService) {
     const token = TelegramConfig.apiKey;
     this.telegramBot = new TelegramBot(token, { polling: true });
-    this.telegramBot.onText(/[А-я|і]*-[\d]*/g, (msg, match) => {
-      this.getNextLesson(msg.text).then(nextLesson =>
-        this.telegramBot.sendMessage(msg.chat.id, nextLesson),
+    this.telegramBot.setWebHook(this.webhookUrl);
+    this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
+      this.getNextLesson(msg.text).then(
+        nextLesson => this.telegramBot.sendMessage(msg.chat.id, nextLesson),
+        _ => this.telegramBot.sendMessage(msg.chat.id, 'kuku'),
       );
     });
-    this.telegramBot.onText(/(?!([А-я|і]+-[\d]+))/g, msg =>
-      this.telegramBot.sendMessage(msg.chat.id, 'kuku'),
-    );
   }
 
   private getNextLesson(groupName: string) {

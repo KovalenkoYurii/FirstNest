@@ -14,7 +14,11 @@ export class TelegramService {
         this.telegramBot.sendMessage(msg.chat.id, nextLesson),
       );
     });
+    this.telegramBot.onText(/(?!([А-я|і]+-[\d]+))/g, msg =>
+      this.telegramBot.sendMessage(msg.chat.id, 'kuku'),
+    );
   }
+
   private getNextLesson(groupName: string) {
     return this.schedule.getNextLessonForGroup(groupName);
   }

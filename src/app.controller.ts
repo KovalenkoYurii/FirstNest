@@ -12,8 +12,15 @@ export class AppController {
   }
 
   @Get('/root')
-  get(): string {
-    return this.appService.getHello();
+  get(@Req() request: Request) {
+// tslint:disable-next-line: no-console
+    console.log(request.body);
+  }
+
+  @Post('/root')
+  post(@Req() request: Request) {
+// tslint:disable-next-line: no-console
+    console.log(request.body);
   }
 
   @Get('/telegram/schedule')

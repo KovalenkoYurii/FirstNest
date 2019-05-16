@@ -5,7 +5,7 @@ import { HttpService, HttpModule } from '@nestjs/common';
 jest.mock('request-promise');
 describe('ScheduleService', () => {
   // let service: ScheduleService;
-  let service: any = {};
+  const service: any = {};
 
   beforeEach(async () => {
     // const module: TestingModule = await Test.createTestingModule({

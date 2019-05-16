@@ -8,7 +8,7 @@ jest.mock('jsdom', () => () => ({}));
 
 describe('TelegramService', () => {
   // let service: TelegramService;
-  let service: any = {};
+  const service: any = {};
 
   beforeEach(async () => {
     // const module: TestingModule = await Test.createTestingModule({

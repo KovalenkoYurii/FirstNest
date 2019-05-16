@@ -3,7 +3,7 @@ import { Request } from 'express';
 
 @Controller('xxx')
 export class TelegramController {
-  @All('schedule')
+  @All('/schedule')
   getSchedule(@Req() request: Request) {
     console.log(request.body);
   }

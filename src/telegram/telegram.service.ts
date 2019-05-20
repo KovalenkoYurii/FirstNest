@@ -12,7 +12,7 @@ export class TelegramService {
   constructor(private schedule: ScheduleService) {
     const token = TelegramConfig.apiKey;
     this.telegramBot = new TelegramBot(token, { polling: true });
-    this.telegramBot.setWebHook(this.webhookUrl);
+    // this.telegramBot.setWebHook(this.webhookUrl);
     this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
       this.getNextLesson(msg.text).then(
         nextLesson => this.telegramBot.sendMessage(msg.chat.id, nextLesson),

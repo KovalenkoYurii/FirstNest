@@ -5,8 +5,16 @@ node_js:
 after_install:
   - npm run lint
 
-script:
+before_script:
   - npm run test
 
-after_success:
-  - npm run deploy
+script:
+  - npm run build
+
+deploy:
+  provider: heroku
+  api_key: $herokukey
+  app:
+    master: awesome-nest-project-master
+    develop: awesome-nest-project-develop
+    test: awesome-nest-project-test

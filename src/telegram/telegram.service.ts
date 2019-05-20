@@ -7,18 +7,18 @@ import { ScheduleService } from '../schedule/schedule.service';
 export class TelegramService {
   private readonly telegramBot: TelegramBot;
   private readonly webhookUrl: string = `${
-    process.env.NOW_URL
+    process.env.APP_URL
   }/telegram/schedule`;
   constructor(private schedule: ScheduleService) {
     const token = TelegramConfig.apiKey;
     this.telegramBot = new TelegramBot(token, { polling: true });
-    // this.telegramBot.setWebHook(this.webhookUrl);
-    this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
-      this.getNextLesson(msg.text).then(
-        nextLesson => this.telegramBot.sendMessage(msg.chat.id, nextLesson),
-        _ => this.telegramBot.sendMessage(msg.chat.id, 'kuku'),
-      );
-    });
+    this.telegramBot.setWebHook(this.webhookUrl);
+    // this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
+    //   this.getNextLesson(msg.text).then(
+    //     nextLesson => this.telegramBot.sendMessage(msg.chat.id, nextLesson),
+    //     _ => this.telegramBot.sendMessage(msg.chat.id, 'kuku'),
+    //   );
+    // });
   }
 
   private getNextLesson(groupName: string) {

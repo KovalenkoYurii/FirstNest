@@ -8,20 +8,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-// tslint:disable-next-line: no-console
-    console.dir({ process });
     return this.appService.getHello();
-  }
-
-  @Get('/telegram/schedule')
-  getSchedule(@Req() request: Request) {
-    // tslint:disable-next-line: no-console
-    console.log(request.body);
-  }
-
-  @Post('/telegram/schedule')
-  postSchedule(@Req() request: Request) {
-    // tslint:disable-next-line: no-console
-    console.log(request.body);
   }
 }

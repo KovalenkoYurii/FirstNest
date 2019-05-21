@@ -8,19 +8,23 @@ export class TelegramService {
   private readonly telegramBot: TelegramBot;
   private readonly webhookUrl: string;
   constructor(private schedule: ScheduleService) {
+// tslint:disable-next-line: no-console
+    console.log(process.env);
     this.webhookUrl = `${process.env.APP_URL ||
       'https://awesome-nest-project-develop.herokuapp.com'}/telegram/schedule`;
     const token = TelegramConfig.apiKey;
     this.telegramBot = new TelegramBot(token);
     this.telegramBot.setWebHook(this.webhookUrl);
-    // tslint:disable-next-line: no-console
-    console.log(this.webhookUrl);
-    // this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
-    //   this.getNextLesson(msg.text).then(
-    //     nextLesson => this.telegramBot.sendMessage(msg.chat.id, nextLesson),
-    //     _ => this.telegramBot.sendMessage(msg.chat.id, 'kuku'),
-    //   );
-    // });
+  }
+
+  public async handleMessage(chatId: number, text: string) {
+    const regex = /[А-я|і]*-[\d]*/g;
+    if (regex.test(text)) {
+      const nextLesson = await this.getNextLesson(text);
+      this.telegramBot.sendMessage(chatId, nextLesson);
+    } else {
+      this.telegramBot.sendMessage(chatId, 'bye');
+    }
   }
 
   private getNextLesson(groupName: string) {

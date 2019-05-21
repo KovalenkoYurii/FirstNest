@@ -1,11 +1,15 @@
-import { Controller, Get, Req, All } from '@nestjs/common';
+import { Controller, Req, Post } from '@nestjs/common';
 import { Request } from 'express';
+import { TelegramService } from './telegram.service';
 
 @Controller('telegram')
 export class TelegramController {
-  @All('schedule')
+  constructor(private telegram: TelegramService) {}
+  @Post('schedule')
   getSchedule(@Req() request: Request) {
-// tslint:disable-next-line: no-console
-    console.log(request.body);
+    const {
+      chat: { id, text },
+    } = request.body;
+    this.telegram.handleMessage(id, text);
   }
 }

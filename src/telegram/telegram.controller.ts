@@ -11,7 +11,8 @@ export class TelegramController {
     console.log(request.body.chat);
     const {
       message: {
-        chat: { id, text },
+        chat: { id },
+        text,
       },
     } = request.body;
     this.telegram.handleMessage(id, text);

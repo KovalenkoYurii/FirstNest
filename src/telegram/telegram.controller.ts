@@ -7,10 +7,12 @@ export class TelegramController {
   constructor(private telegram: TelegramService) {}
   @Post('schedule')
   getSchedule(@Req() request: Request) {
-// tslint:disable-next-line: no-console
+    // tslint:disable-next-line: no-console
     console.log(request.body.chat);
     const {
-      chat: { id, text },
+      message: {
+        chat: { id, text },
+      },
     } = request.body;
     this.telegram.handleMessage(id, text);
   }

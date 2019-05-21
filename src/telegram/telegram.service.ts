@@ -6,14 +6,14 @@ import { ScheduleService } from '../schedule/schedule.service';
 @Injectable()
 export class TelegramService {
   private readonly telegramBot: TelegramBot;
-  private readonly webhookUrl: string = `${
-    process.env.APP_URL || 'https://awesome-nest-project-develop.herokuapp.com'
-  }/telegram/schedule`;
+  private readonly webhookUrl: string;
   constructor(private schedule: ScheduleService) {
+    this.webhookUrl = `${process.env.APP_URL ||
+      'https://awesome-nest-project-develop.herokuapp.com'}/telegram/schedule`;
     const token = TelegramConfig.apiKey;
     this.telegramBot = new TelegramBot(token);
     this.telegramBot.setWebHook(this.webhookUrl);
-// tslint:disable-next-line: no-console
+    // tslint:disable-next-line: no-console
     console.log(this.webhookUrl);
     // this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
     //   this.getNextLesson(msg.text).then(

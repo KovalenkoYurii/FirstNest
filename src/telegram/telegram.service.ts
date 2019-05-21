@@ -13,6 +13,7 @@ export class TelegramService {
     const token = TelegramConfig.apiKey;
     this.telegramBot = new TelegramBot(token);
     this.telegramBot.setWebHook(this.webhookUrl);
+// tslint:disable-next-line: no-console
     console.log(this.webhookUrl);
     // this.telegramBot.onText(/[А-я|і]*-[\d]*/g, msg => {
     //   this.getNextLesson(msg.text).then(

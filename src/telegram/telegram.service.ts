@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { TelegramConfig } from './telegram.config';
 import * as TelegramBot from 'node-telegram-bot-api';
 import { ScheduleService } from '../schedule/schedule.service';
 
@@ -7,21 +6,23 @@ import { ScheduleService } from '../schedule/schedule.service';
 export class TelegramService {
   private readonly telegramBot: TelegramBot;
   private readonly webhookUrl: string;
+  private readonly groupRegex: RegExp;
+  private readonly token: string;
+
   constructor(private schedule: ScheduleService) {
-// tslint:disable-next-line: no-console
-    console.log(process.env);
     this.webhookUrl = `${process.env.APP_URL ||
       'https://awesome-nest-project-develop.herokuapp.com'}/telegram/schedule`;
-    const token = TelegramConfig.apiKey;
-    this.telegramBot = new TelegramBot(token);
+    this.token = process.env.SCHEDULE_BOT || 'no token provided';
+    this.telegramBot = new TelegramBot(this.token);
     this.telegramBot.setWebHook(this.webhookUrl);
   }
 
-  public async handleMessage(chatId: number, text: string) {
-    const regex = /[А-я|і]*-[\d]*/g;
-    if (regex.test(text)) {
-      const nextLesson = await this.getNextLesson(text);
-      this.telegramBot.sendMessage(chatId, nextLesson);
+  public handleMessage(chatId: number, text: string) {
+    if (this.groupRegex.test(text)) {
+      this.getNextLesson(text).then(
+        nextLesson => this.telegramBot.sendMessage(chatId, nextLesson),
+        _ => this.telegramBot.sendMessage(chatId, 'not-found'),
+      );
     } else {
       this.telegramBot.sendMessage(chatId, 'bye');
     }

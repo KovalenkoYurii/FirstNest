@@ -15,6 +15,7 @@ export class TelegramService {
     this.token = process.env.SCHEDULE_BOT || 'no token provided';
     this.telegramBot = new TelegramBot(this.token);
     this.telegramBot.setWebHook(this.webhookUrl);
+    this.groupRegex = /[А-я|і]*-[\d]*/g;
   }
 
   public handleMessage(chatId: number, text: string) {

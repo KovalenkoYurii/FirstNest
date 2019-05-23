@@ -29,7 +29,7 @@ export class TelegramService {
     this.groupRegex = /[А-я|і]*-[\d]*/gi;
     this.currencyRegex = /^(usd|eur)$/gi;
     this.currencyWebhook = `${process.env.APP_URL ||
-      this.defaultUrl}/telegram/currnecy`;
+      this.defaultUrl}/telegram/currency`;
     this.currencyToken =
       process.env.CURRENCY_BOT || 'no currencyToken provided';
     this.currencyBot = new TelegramBot(this.currencyToken);

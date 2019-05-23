@@ -19,37 +19,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const jsdom_1 = require("jsdom");
-let ScheduleService = class ScheduleService {
+let CurrencyService = class CurrencyService {
     constructor(http) {
         this.http = http;
-        this.lessonUrl = 'https://api.rozklad.org.ua/v2/groups';
-        this.groupRegex = /[А-я|і]*-[\d]*/g;
+        this.currencyUrl = 'https://client-bank.privatbank.ua/p24/login';
     }
-    getGroupUrl(groupName) {
+    getCurrency(currencyCode) {
         return __awaiter(this, void 0, void 0, function* () {
-            const encodedGroupName = encodeURIComponent(groupName);
-            const response = yield this.http
-                .get(`${this.lessonUrl}/${encodedGroupName}`)
-                .toPromise();
-            return response.data.data.group_url;
-        });
-    }
-    getNextLessonForGroup(groupName) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const groupUrl = yield this.getGroupUrl(groupName);
-            const { window: { document }, } = yield jsdom_1.JSDOM.fromURL(groupUrl, {
+            const { window: { document }, } = yield jsdom_1.JSDOM.fromURL(this.currencyUrl, {
                 resources: 'usable',
                 runScripts: 'dangerously',
             });
-            const nextLesson = document.querySelector('.closest_pair .plainLink') ||
-                document.querySelector('.current_pair .plainLink');
-            return nextLesson.textContent;
+            const currency = document.querySelector(`.${currencyCode}_box`).textContent || '';
+            return currency;
         });
     }
 };
-ScheduleService = __decorate([
+CurrencyService = __decorate([
     common_1.Injectable(),
     __metadata("design:paramtypes", [common_1.HttpService])
-], ScheduleService);
-exports.ScheduleService = ScheduleService;
-//# sourceMappingURL=schedule.service.js.map
+], CurrencyService);
+exports.CurrencyService = CurrencyService;
+//# sourceMappingURL=currency.service.js.map

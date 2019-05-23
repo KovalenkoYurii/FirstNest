@@ -12,13 +12,14 @@ const app_service_1 = require("./app.service");
 const telegram_service_1 = require("./telegram/telegram.service");
 const schedule_service_1 = require("./schedule/schedule.service");
 const telegram_controller_1 = require("./telegram/telegram.controller");
+const currency_service_1 = require("./currency/currency.service");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [common_1.HttpModule],
         controllers: [app_controller_1.AppController, telegram_controller_1.TelegramController],
-        providers: [app_service_1.AppService, telegram_service_1.TelegramService, schedule_service_1.ScheduleService],
+        providers: [app_service_1.AppService, telegram_service_1.TelegramService, schedule_service_1.ScheduleService, currency_service_1.CurrencyService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

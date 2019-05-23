@@ -13,20 +13,37 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const telegram_service_1 = require("./telegram.service");
 let TelegramController = class TelegramController {
+    constructor(telegram) {
+        this.telegram = telegram;
+    }
     getSchedule(request) {
-        console.log(request.body);
+        const { message: { chat: { id }, text, }, } = request.body;
+        this.telegram.handleScheduleMessage(id, text);
+    }
+    getCurrency(request) {
+        const { message: { chat: { id }, text, }, } = request.body;
+        this.telegram.handleCurrencyMessage(id, text);
     }
 };
 __decorate([
-    common_1.All('/schedule'),
+    common_1.Post('schedule'),
     __param(0, common_1.Req()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], TelegramController.prototype, "getSchedule", null);
+__decorate([
+    common_1.Post('currency'),
+    __param(0, common_1.Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], TelegramController.prototype, "getCurrency", null);
 TelegramController = __decorate([
-    common_1.Controller('xxx')
+    common_1.Controller('telegram'),
+    __metadata("design:paramtypes", [telegram_service_1.TelegramService])
 ], TelegramController);
 exports.TelegramController = TelegramController;
 //# sourceMappingURL=telegram.controller.js.map

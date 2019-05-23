@@ -17,6 +17,14 @@ export class CurrencyService {
     });
     const currency =
       document.querySelector(`.${currencyCode}_box`).textContent || '';
+    setInterval(
+// tslint:disable-next-line: no-console
+      console.log.bind(
+        null,
+        document.querySelector(`.${currencyCode}_box`).textContent,
+      ),
+      1000,
+    );
     return currency.replace(/\s/g, '');
   }
 }

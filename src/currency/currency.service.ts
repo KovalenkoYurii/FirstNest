@@ -17,6 +17,6 @@ export class CurrencyService {
     });
     const currency =
       document.querySelector(`.${currencyCode}_box`).textContent || '';
-    return currency;
+    return currency.replace(/\s/g, '');
   }
 }

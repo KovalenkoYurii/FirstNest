@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as TelegramBot from 'node-telegram-bot-api';
 import { ScheduleService } from '../schedule/schedule.service';
-import { CurrencyService } from 'src/currency/currency.service';
+import { CurrencyService } from '../currency/currency.service';
 
 @Injectable()
 export class TelegramService {

@@ -8,7 +8,10 @@ interface ScheduleResponse {
 @Injectable()
 export class ScheduleService {
   private readonly lessonUrl = 'https://api.rozklad.org.ua/v2/groups';
-  constructor(private http: HttpService) {}
+  private readonly groupRegex: RegExp;
+  constructor(private http: HttpService) {
+    this.groupRegex = /[А-я|і]*-[\d]*/g;
+  }
 
   private async getGroupUrl(groupName: string) {
     const encodedGroupName = encodeURIComponent(groupName);
@@ -22,7 +25,10 @@ export class ScheduleService {
     const groupUrl = await this.getGroupUrl(groupName);
     const {
       window: { document },
-    } = await JSDOM.fromURL(groupUrl, { resources: 'usable' });
+    } = await JSDOM.fromURL(groupUrl, {
+      resources: 'usable',
+      runScripts: 'dangerously',
+    });
     const nextLesson =
       document.querySelector('.closest_pair .plainLink') ||
       document.querySelector('.current_pair .plainLink');

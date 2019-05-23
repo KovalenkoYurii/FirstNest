@@ -13,6 +13,17 @@ export class TelegramController {
         text,
       },
     } = request.body;
-    this.telegram.handleMessage(id, text);
+    this.telegram.handleScheduleMessage(id, text);
+  }
+
+  @Post('currency')
+  getCurrency(@Req() request: Request) {
+    const {
+      message: {
+        chat: { id },
+        text,
+      },
+    } = request.body;
+    this.telegram.handleCurrencyMessage(id, text);
   }
 }

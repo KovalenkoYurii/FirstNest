@@ -11,8 +11,6 @@ export class TelegramService {
   private readonly currencyBot: TelegramBot;
   private readonly scheduleWebhook: string;
   private readonly currencyWebhook: string;
-  private readonly groupRegex: RegExp;
-  private readonly currencyRegex: RegExp;
   private readonly scheduleToken: string;
   private readonly currencyToken: string;
 
@@ -26,8 +24,6 @@ export class TelegramService {
       process.env.SCHEDULE_BOT || 'no scheduleToken provided';
     this.scheduleBot = new TelegramBot(this.scheduleToken);
     this.scheduleBot.setWebHook(this.scheduleWebhook);
-    this.groupRegex = /[А-я|і]*-[\d]*/gi;
-    this.currencyRegex = /^(usd|eur)$/gi;
     this.currencyWebhook = `${process.env.APP_URL ||
       this.defaultUrl}/telegram/currency`;
     this.currencyToken =
@@ -37,32 +33,20 @@ export class TelegramService {
   }
 
   public handleScheduleMessage(chatId: number, text: string) {
-    if (this.groupRegex.test(text)) {
-      this.getNextLesson(text).then(
+    this.schedule
+      .getNextLessonForGroup(text)
+      .then(
         nextLesson => this.scheduleBot.sendMessage(chatId, nextLesson),
         _ => this.scheduleBot.sendMessage(chatId, 'not found'),
       );
-    } else {
-      this.scheduleBot.sendMessage(chatId, 'wrong');
-    }
-  }
-
-  private getNextLesson(groupName: string) {
-    return this.schedule.getNextLessonForGroup(groupName);
   }
 
   public handleCurrencyMessage(chatId: number, text: string) {
-    if (this.currencyRegex.test(text)) {
-      this.getCurrency(text).then(
-        course => this.currencyBot.sendMessage(chatId, course),
+    this.currency
+      .getCurrency(text)
+      .then(
+        currency => this.currencyBot.sendMessage(chatId, currency),
         _ => this.currencyBot.sendMessage(chatId, 'error'),
       );
-    } else {
-      this.currencyBot.sendMessage(chatId, 'wrong currency');
-    }
-  }
-
-  private getCurrency(currencyCode: string) {
-    return this.currency.getCurrency(currencyCode);
   }
 }

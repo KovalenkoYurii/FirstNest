@@ -7,13 +7,7 @@ describe('ScheduleService', () => {
   // let service: ScheduleService;
   const service: any = {};
 
-  beforeEach(async () => {
-    // const module: TestingModule = await Test.createTestingModule({
-    //   imports: [HttpModule],
-    //   providers: [ScheduleService, { provide: HttpService, useValue: {} }],
-    // }).compile();
-    // service = module.get<ScheduleService>(ScheduleService);
-  });
+  // beforeEach(async () => {});
 
   it('should be defined', async done => {
     expect(service).toBeDefined();

@@ -3,8 +3,6 @@ node_js:
   - '11'
 
 cache: npm
-before_install:
-  - npm ci
 
 before_script:
   - npm run lint
@@ -12,5 +10,10 @@ before_script:
 script:
   - npm run test
 
-after_success:
-  - npm run deploy
+deploy:
+  provider: heroku
+  api_key: $herokukey
+  app:
+    master: awesome-nest-project-master
+    develop: awesome-nest-project-develop
+    test: awesome-nest-project-test
